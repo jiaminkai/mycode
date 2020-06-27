@@ -36,11 +36,11 @@ export default {
     box-sizing: border-box;
 }
 .brand-box{
-    width: 158px;
+    width: 49%;
     height: 108px;
     display: inline-block;
     position: relative;
-    padding-left:4px;
+    padding-left:6px;
     margin-bottom:6px ;
     box-sizing: border-box;
     

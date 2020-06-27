@@ -44,12 +44,15 @@ export default {
     flex: 1;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
 }
 .tab-item img{
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
+  margin-top: 6px;
 }
 .active{
     color: red;
 }
+
 </style>

@@ -5,7 +5,7 @@
     <channel :channellist="channel" v-if="fale"/>
     <brand :brandlist="brandList"/>
      <div class="new">
-            <div class="newtext1">新品首发</div>
+            <div class="newtext1"  >新品首发</div>
             <div class="newtext2">查看全部</div>
       </div>
     <newgoods :newgoods="newGoods"/>
@@ -14,10 +14,16 @@
             <div class="newtext4">查看全部</div>
      </div> 
     <newgoods :newgoods="hotGoods"/> 
+    <topiclist :topiclist='topicList'/>
+    <newcategory :newcategory='newCategoryList'/>
   </div>
 </template>
 <style>
-
+.main{
+   padding-bottom: 55px;
+   background: #EAEAEA;
+   clear: left;
+}
 .new,.new1{
     height: 90px;
     margin: 6px 0;
@@ -26,7 +32,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
- 
 }
 .new1{
     background:#ffffcc ;
@@ -61,29 +66,36 @@ import search from '../components/search/search.vue'
 import brand from '../components/brand/brand.vue'
 import banter from '../components/banter/banter.vue'
 import newgoods from '../components/newgoods/newgoods.vue'
+import topiclist from '../components/topiclist/topiclist.vue'
+import newcategory from '../components/newCategoryList/newCategoryList.vue'
 import Vue from 'vue'
 import axios from 'axios'
 export default {
     name:'mian',
       data : function(){
-    return{
-      fale:false,
-      banner:[],
-    channel:[],
-    newGoods:[],
-    hotGoods:[],
-    topicList:[],
-    newCategoryList:[],
-    brandList:[]
-    }
+        return{
+          fale:false,
+          banner:[],
+          channel:[],
+          newGoods:[],
+          hotGoods:[],
+          topicList:[],
+          newCategoryList:[],
+          brandList:[]
+        }
     
+  },
+  methods:{
+
   },
    components:{
     search,
     banter,
     channel,
     brand,
-    newgoods
+    newgoods,
+    topiclist,
+    newcategory
   },
   created:function(){
     
@@ -99,8 +111,7 @@ export default {
       this._data.brandList=res.data.brandList
       this._data.newCategoryList=res.data.newCategoryList
       this._data.fale=true
-        // console.log(this._data)
-        // console.log(this._data.banner)
+
 
     })
       }

@@ -1,15 +1,15 @@
 <template>
     <div class="banter" >
         <ul >
-            
             <li  v-for="(item,index) in list" :key="index" v-show="index===num"  >
-                <img :src="item.image_url" alt="" mode='widthfix'>
+                <img v-if="item.image_url" :src="item.image_url" alt="" mode='widthfix'>
+                <img v-if="item.img_url" :src="item.img_url" alt="" mode='widthfix'>
+
             </li>
-           
         </ul>
           <div class="xiaoqiu">
               <ol>
-                  <li v-for="(n,index) in list" :key="index" class="box" @click.stop="change(index)" :class="index==n.id?'active':''"></li>
+                  <li v-for="(n,index) in list" :key="index" class="box" @click.stop="change(index)" :class="[num==index ? 'active' : '',]"></li>
               </ol>
           </div>
     </div>
@@ -31,21 +31,21 @@
 .banter ul {
     list-style: none;
     width: 400%;
-    height: 160px;
+    height: 100%;
     
 }
 .banter ul li{
     display:block;
     float: left;
     width: 25%;
-    height: 160px;
+    height: 100%;
     background: orange;
 }
 .banter ul li img{
     display:block;
     float: left;
     width: 100%;
-    height: 160px;
+    height: 100%;
    
 }
 .xiaoqiu{
@@ -62,7 +62,6 @@ transform: translate(-50%,-50%);
 }
 .xiaoqiu ol{
     list-style: none;
-    
 }
 .box{
     float: left;
@@ -94,12 +93,15 @@ export default {
     },
     methods:{
             play(){
+                var length =this.list.length-1
                 this.time=setInterval(()=>{
-                    this.num++;
-                    if(this.num>=4){
+                    if(this.num<length){
+                        this.num++;
+                        // console.log(this.num)
+                    }else{
                         this.num=0
                     }
-                },2000)
+                },2000) 
             },
           
             change(index){
@@ -112,7 +114,9 @@ export default {
         this.play()
     },
     computed:{
-   
+        is_active(){
+            // return index==n.id?'active':''
+        }
     }
 };
 

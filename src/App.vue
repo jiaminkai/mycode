@@ -8,20 +8,25 @@
         <img slot="item-icon-active" src="./assets/img/ic_menu_choice_pressed.png"  alt="">
         <span slot="item-text">首页</span>
       </tab-item>
-       <tab-item link="/categroy">
-        <img slot="item-icon" src="./assets/img/ic_menu_choice_nor.png" alt="">
-        <img slot="item-icon-active" src="./assets/img/ic_menu_me_pressed.png"  alt="">
-        <span slot="item-text">分类</span>
-      </tab-item>
-       <tab-item link="/my">
-        <img slot="item-icon" src="./assets/img/ic_menu_shoping_nor.png" alt="">
-        <img slot="item-icon-active" src="./assets/img/ic_menu_shoping_pressed.png"  alt="">
-        <span slot="item-text">我的</span>
-      </tab-item>
-       <tab-item link="/cart">
+      <tab-item link="/special">
         <img slot="item-icon" src="./assets/img/ic_menu_topic_nor.png" alt="">
         <img slot="item-icon-active" src="./assets/img/ic_menu_topic_pressed.png"  alt="">
+        <span slot="item-text">专题</span>
+      </tab-item>
+      <tab-item link="/categroy">
+        <img slot="item-icon" src="./assets/img/ic_menu_sort_nor.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/ic_menu_sort_pressed.png"  alt="">
+        <span slot="item-text">分类</span>
+      </tab-item>
+      <tab-item link="/cart">
+        <img slot="item-icon" src="./assets/img/ic_menu_shoping_nor.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/ic_menu_shoping_pressed.png"  alt="">      
         <span slot="item-text">购物车</span>
+      </tab-item>
+      <tab-item link="/my">
+        <img slot="item-icon" src="./assets/img/ic_menu_me_nor.png" alt="">
+        <img slot="item-icon-active" src="./assets/img/ic_menu_me_pressed.png"  alt="">
+        <span slot="item-text">我的</span>
       </tab-item>
     </tab-list>
     <!-- <banter :list="banner" v-if="fale" />
@@ -29,12 +34,18 @@
     <brand :brandlist="brandList"/>
     <newgoods :newgoods="newGoods"/> 
     <newgoods :newgoods="hotGoods"/>  -->
-
   </div>
 </template>
 
 <style>
-
+html{
+  height: 100%;
+  width: 100%;
+}
+body{
+  height: 100%;
+  width: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -42,7 +53,10 @@
   text-align: center;
   color: #2c3e50;
   background: #EAEAEA;
-  margin-bottom: 80px;
+  height: 100%;
+  width: 100%;
+  /* padding-bottom: 49px; */
+  /* overflow: scroll; */
 }
 
 #nav {

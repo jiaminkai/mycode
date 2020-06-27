@@ -5,6 +5,9 @@ import Cart from '../views/cart.vue'
 import Categroy from '../views/categroy.vue'
 import Main from '../views/main.vue'
 import My from '../views/my.vue'
+import Details from '../views/Details.vue'
+import special from '../views/Special.vue';
+
 
 Vue.use(VueRouter)
 
@@ -39,6 +42,18 @@ Vue.use(VueRouter)
     path: '/main',
     name: 'Main',
     component: Main
+  },
+  {
+    path: '/details:id',
+    name: 'Details',
+    component: Details
+  },
+  {
+    path: '/special',
+    name: 'special',
+    component: special
+  },{
+    path:'/topic/listaction:id'
   },
 ]
 
