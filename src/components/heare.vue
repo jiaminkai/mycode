@@ -3,7 +3,7 @@
     <div class="containers position-relative" style="height: 40px; line-height: 40px;">
             <div id="nav" class="nav h-100 position-absolute" style="top: 0; left: 0;">
                 <ul class="list-inline h-100">
-                <li class="float-left" v-for="item in this.list"><a class="w-100 text-decoration-none text-light" href="">{{item}}</a><span class="pl-2 pr-2">|</span></li>
+                <li class="float-left" v-for="item in this.list" :key="item"><a class="w-100 text-decoration-none text-light" href="">{{item}}</a><span class="pl-2 pr-2">|</span></li>
                     <li id="downapp" class="float-left"><a class="w-100 text-decoration-none text-light" href="">下载app</a>
                         <div id="app" class="bg-white text-center   border position-absolute " style=" z-index: 999999;width: 100px; right: -20px;;" >
                         <img src="img/mi-logo.png" style="width: 50px; height: 50px; background: #ff6700;" alt=""><br>
