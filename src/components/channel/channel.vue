@@ -1,6 +1,6 @@
 <template>
     <div class="channer-tab">
-        <div class="item"  v-for="(item,index) in this.channellist" :key="index">
+        <div class="item"  v-for="(item,index) in this.channellist" :key="index" @click="tocartgroylist(index,item.id)">  
             <img  :src="item.icon_url" alt="">
             <div v-text="item.name"></div>
         </div>
@@ -32,11 +32,22 @@ align-items: center;
 
 </style>
 <script>
-
+// import cartgroylist from "../../views/cartgroylist.vue";
 export default {
     name:"channel",
     props:{
         channellist:Array
+    },
+    components:{
+        // cartgroylist
+    },
+    methods:{
+        tocartgroylist(id,cartid){
+             this.$router.push({path:`/cartgroylist`,query:{cartid,id}})
+            console.log(id)
+            console.log(cartid)
+
+        }
     }
 }
 </script>

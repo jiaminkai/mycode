@@ -38,6 +38,7 @@ export default {
 </script>
 <style  scoped>
 .tab-item{
+    width: 25%;
     height: 49px;
     display:flex;
     flex-direction :column;

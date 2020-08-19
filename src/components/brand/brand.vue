@@ -1,8 +1,8 @@
 <template>
 <div class="brand" >
-    <div class="pinpai"> 品牌制造商直供 </div>
+    <div class="pinpai" @click="to"> 品牌制造商直供 </div>
     <div class="brand-list">
-        <div class="brand-box" v-for="(item,index) in this.brandlist" :key="index">
+        <div class="brand-box" v-for="(item,index) in this.brandlist" :key="index" @click="tobrnadderails(item.id)">
             <div class="brand-item">
                 <div v-text="item.name"></div>
                 <div v-text="item.floor_price"></div>
@@ -17,6 +17,15 @@ export default {
     name:"brand",
     props:{
         brandlist:Array
+    },
+    methods:{
+        tobrnadderails(id){
+            console.log(id)
+      this.$router.push({path:"/branddetails",query:{id}})
+        },
+        to(){
+         this.$router.push("/brandlist")   
+        }
     }
 };
 // console.log(this)

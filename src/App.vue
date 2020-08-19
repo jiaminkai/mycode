@@ -29,15 +29,11 @@
         <span slot="item-text">我的</span>
       </tab-item>
     </tab-list>
-    <!-- <banter :list="banner" v-if="fale" />
-    <channel :channellist="channel" v-if="fale"/>
-    <brand :brandlist="brandList"/>
-    <newgoods :newgoods="newGoods"/> 
-    <newgoods :newgoods="hotGoods"/>  -->
   </div>
 </template>
 
 <style>
+
 html{
   height: 100%;
   width: 100%;
@@ -59,23 +55,13 @@ body{
   /* overflow: scroll; */
 }
 
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 
 </style>
 <script >
 import TabList from './components/tablist/tablist.vue'
 import TabItem from './components/tabitem/tabitem.vue'
+// import cartgroylist from "./views/cartgroylist.vue";
 
 
 export default {
@@ -83,7 +69,8 @@ export default {
 
   components:{
     TabList,
-    TabItem 
+    TabItem ,
+    // cartgroylist
   },
   methods:{
 

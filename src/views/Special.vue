@@ -50,7 +50,7 @@ export default {
         todetails(id){
             console.log(id);
                   this.$router.push({
-        path: `/details/${id}`
+        path: '/details'+id
       })
     
         },
@@ -58,12 +58,6 @@ export default {
         var scrollTop = parseInt(Math.ceil(e.target.documentElement.scrollTop))
         var scrollHeight =parseInt(e.target.documentElement.scrollHeight) 
         var clientHeight = parseInt(e.target.documentElement.clientHeight) 
-        // console.log(scrollTop)
-        // console.log(scrollHeight)
-        // console.log(clientHeight)
-        // console.log(scrollHeight *this.page)
-        // console.log(this.page)
-        // console.log(scrollTop+clientHeight)
         if(scrollHeight ==scrollTop+clientHeight){
               this.page++;
             this.netx();
@@ -87,6 +81,7 @@ export default {
     mounted:function(){
     window.addEventListener('scroll',this.Dropdown)},
     created:function(){
+            // 第一页数据
             axios.get('api/topic/listaction',{
                 params: {
                         page:1

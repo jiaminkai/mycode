@@ -11,11 +11,12 @@
       <div class="goods_brief" v-html="this.info.goods_brief"></div>
       <div class="retail_price" v-html="'￥'+this.info.retail_price"></div>
     </div>
-    <div class="spec">
-      <div class="spec-title">请选择规格数量</div>
+    <div class="spec" @click="addgart">
+      <div class="spec-title" >请选择规格数量</div>
       <img src="../assets/img/right.png" alt="">
     </div>
     <div id="goods_desc" v-html="this.info.goods_desc"></div>
+    <!-- 问题 -->
     <div class="problem-box">
       <div class="line">
       <div class="line-borde"></div>
@@ -36,39 +37,58 @@
         <div class="line-title">大家都喜欢</div>
         <div class="line-borde"></div>
     </div>
+    <!-- 推荐产品 -->
     <div class="tuijain">
-       <div class="tuijiangoods" v-for="(item,index) in this.productList" :key="index">
+       <div class="tuijiangoods" v-for="(item,index) in this.productList"  :key="index" @click="todetails(item.id)">
         <img :src="item.list_pic_url" alt="">
         <div class="tuijiangoods-text" v-html="item.name"></div>
         <div class="tuijiangoods-price" v-html="'￥'+item.retail_price"></div>
       </div>
     </div>
-    <div class="hidediv" v-if="this.addshow"></div>
-    <div class="gart-tab">
-      <div class="gart-hide">
+    <!-- end推荐产品 -->
+
+    <!-- 蒙图层 -->
+    <div class="hidediv" v-if="this.showpop" @click="downup"></div>
+    <!-- end蒙图层 -->
+
+    <!-- 购物车操作栏 -->
+    <div class="gart-tab" >
+      <!-- 隐藏起来的选择规格 -->
+      <transition name="fade">
+      <div class="gart-hide"  v-if="this.showpop">
           <div class="gart-hide-img">
             <img :src="this.info.primary_pic_url" alt="">
             <div class="gart-hide-price">
-              <div class="downup">X</div>
+              <div class="downup" @click.stop="downup">X</div>
               <div class="hide-price">
                 <div class="hide-price-text" v-html="'价格￥'+this.info.retail_price"></div>
                 <div class="hide-price-num">请选择数量</div>
               </div>
-              
             </div>
           </div>
+          <div class="goods-number-title">数量</div>
+          <div class="goods-number">
+            <div class="" @click="del">-</div>
+            <input v-model="number"/>
+            <div class="" @click="add">+</div>
+          </div>
       </div>
+      </transition>
+      <!-- end隐藏起来的选择规格 -->
+
       <div id="details-tab">
-        <div class="gart-sc gart-item">
+        <div class="gart-sc gart-item" @click="shochang">
             <div v-if="!collected" class="iconfont">&#xe60b;</div>
             <div v-else class="iconfont icon2" >&#xe62c;</div>
         </div>
-        <div class="iconfont gart-item iconfont-gart">&#xe600;</div>
+        <div class="iconfont gart-item iconfont-gart" @click="tocart">&#xe600;
+          <div class="allnumber" v-html="this.allnumber"></div> 
+        </div>
         <div class="gart-gomai gart-item">立即购买</div>
         <div class="gart-button gart-item" @click="addgart">加入购物车</div>
       </div>
     </div>
-
+<!-- end购物车操作栏 -->
   </div>
 </template>
 
@@ -82,8 +102,8 @@ export default {
   name: 'Details',
   data(){
     return{
-      id:1009024,
-      openId:'oQmbb4sNZdxaUQZ0sfYgvtOP2S7c',
+      id:0,
+      openId:'',
       gallery:[],
       attribute:[],
       allnumber:0,
@@ -91,18 +111,87 @@ export default {
       issue:[],
       productList:[],
       addshow:false,
-      collected:''
+      collected:'',
+      number:0,
+      showpop:false,
+      
     }
   },
  
+  watch:{
+    id(){
+      this.getopenid()
+      console.log("gengxin")
+    }
+  },
   components: {
       banter,
       newcategory
   },
   methods:{
-        addgart(){
-
+    // 增加商品数量
+        add(){
+          this.number++
+          console.log(this.number)
         },
+        // 减少商品数量
+        del(){
+          if(this.number<=1){
+            this.number=0
+          }else{
+          this.number--
+          }
+        },
+        // 收藏商品
+        shochang(){
+          this.collected=!this.collected
+          axios.post('api/collect/addcollect',{
+            openId:this.openId,
+            goodsId:this.id
+          })
+        },
+        // 跳转购物车
+        tocart(){
+            axios.get('api/cart/cartList',{
+            params:{
+              openId:this.openId
+            }
+            }).then(res=>{
+            console.log(res.data.data)
+            this.cartList= res.data.data
+            })
+          this.$router.push("/cart")
+        },
+        // 添加商品
+        addgart(){         
+          if(this.showpop){
+            // console.log(this.showpop)
+            if(this.number==0){
+              console.log('请输入数量')
+            }else{ axios.post('/api/cart/addCart',{
+                openId: this.openId,
+                goodsId: this.id,
+                number: this.number
+            }) }
+          }else{
+            this.showpop=true;
+          }
+        },
+        // 关闭隐藏栏
+        downup(){
+            this.showpop=false;
+            console.log("1")
+          
+        },
+        todetails(id){
+           this.id=id
+           console.log(this.id)
+                this.$router.push("/details"+id)
+                this.$router.go(0)
+
+   
+        },
+        // 获取详情商品数据
         getopenid(){
         this.openId=getStorageOpenid()  
         this.id=this.$route.params.id
@@ -112,20 +201,20 @@ export default {
             openId:this.openId
           }
         }).then((res)=>{
-          console.log(res.data)
+          console.log('aa',res.data.info)
           this.gallery=res.data.gallery;
           this.attribute=res.data.attribute;
           this.allnumber=res.data.allnumber;
           this.info=res.data.info;
           this.issue=res.data.issue;
           this.productList=res.data.productList;
-          this.collected=res.data.collected
+          this.collected=res.data.collected;
+      
         })
     },
 
 
   },
-
   created:function(){
 this.getopenid()
 }
@@ -302,6 +391,15 @@ this.getopenid()
    align-items: center;
    font-size: 12px;
   }
+  .allnumber{
+    width: 12px;
+    height: 12px;
+    background: red;
+    font-size: 8px;
+    margin-top: -20px;
+    margin-left: -6px;
+    border-radius: 50%;
+  }
 .icon2{
   color: crimson;
 }
@@ -392,4 +490,34 @@ margin: 0 10px;
   font-size: 12px;
   color: 000;
 }
+.goods-number{
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+
+}
+.goods-number div{
+  width: 40px;
+  height: 30px;
+  border: #ccc 1px solid;
+}
+.goods-number input{
+  width: 60px;
+  height: 30px;
+
+  text-align: center;
+  font-size: 14px;
+}
+.goods-number-title{
+  text-align: left;
+  margin: 10px ;
+  font-size: 12px;
+}
+.fade-enter-active, .fade-leave-active {
+ transition:all 1s linear;
+}
+.fade-enter, .fade-leave-to  {
+  transform: translateY(100%);
+}
+
 </style>

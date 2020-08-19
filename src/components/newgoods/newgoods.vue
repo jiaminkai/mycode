@@ -1,8 +1,9 @@
 <template>
     <div class="newgoods">
        <div>
-           <div class="newgoods-list">
-               <div class="newgoods-box" v-for="(item,index) in this.newgoods" :key="index">
+           <div class="newgoods-list" >
+               <div class="newgoods-box" v-for="(item,index) in this.newgoods" :key="index"
+                    @click="todetails(item.id)">
                    <img :src="item.list_pic_url" alt="">
                    <div class="text1" v-text="item.name"></div>
                    <div class="text2" v-text="item.goods_brief"></div>
@@ -18,6 +19,11 @@ export default {
     name:'newgoods',
     props:{
         newgoods:Array
+    },
+    methods:{
+        todetails(id){
+            this.$router.push({path:'details'+id},{params:{id}})
+        }
     }
 }
 </script>
