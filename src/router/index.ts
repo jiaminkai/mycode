@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 import Cart from '../views/cart.vue'
 import Categroy from '../views/categroy.vue'
 import Main from '../views/main.vue'
 import My from '../views/my.vue'
-import Details from '../views/Details.vue'
+// import Details from '../views/Details.vue';
 import special from '../views/Special.vue';
+import cartgroylist from '../views/cartgroylist.vue'
+
 
 
 Vue.use(VueRouter)
@@ -21,9 +22,6 @@ Vue.use(VueRouter)
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },{
     path: '/cart',
@@ -38,7 +36,8 @@ Vue.use(VueRouter)
     path: '/my',
     name: 'My',
     component: My
-  }, {
+  },
+   {
     path: '/main',
     name: 'Main',
     component: Main
@@ -46,15 +45,33 @@ Vue.use(VueRouter)
   {
     path: '/details:id',
     name: 'Details',
-    component: Details
+    
+    component: () => import ('../views/Details.vue')
   },
   {
     path: '/special',
     name: 'special',
     component: special
-  },{
-    path:'/topic/listaction:id'
   },
+  {
+    path:'/cartgroylist',
+    name:'cartlist',
+    component: cartgroylist
+  },
+  {
+    path:'/branddetails',
+    name:'branddetails',
+    component: () => import ('../components/brand/branddetail.vue')
+  },{
+    path:'/brandlist',
+    name:'brandlist',
+    component: () => import ('../components/brand/brandlist.vue')
+  },
+  {
+    path:'/newgoods',
+    name:'newgoods',
+    component:()=> import ('../views/newgoods.vue')
+  }
 ]
 
 const router = new VueRouter({

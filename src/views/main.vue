@@ -1,15 +1,16 @@
 <template>
   <div class="main">
     <search/>
-    <banter :list="banner" v-if="fale" />
-    <channel :channellist="channel" v-if="fale"/>
-    <brand :brandlist="brandList"/>
-     <div class="new">
+  
+    <banter  :list="banner" v-if="fale"   />
+    <channel :channellist="channel" v-if="fale" />
+    <brand :brandlist="brandList" />
+     <div class="new" @click="tonewgoods('new')">
             <div class="newtext1"  >新品首发</div>
             <div class="newtext2">查看全部</div>
       </div>
     <newgoods :newgoods="newGoods"/>
-     <div class="new1">
+     <div class="new1" @click="tonewgoods('hot')">
             <div class="newtext3">人气推荐 · 好物精选</div>
             <div class="newtext4">查看全部</div>
      </div> 
@@ -19,6 +20,24 @@
   </div>
 </template>
 <style>
+@media all and (min-width:900px){
+ 
+  #app{
+  
+width: 320px;
+height: 568px;
+margin: 0 auto;
+overflow: scroll;
+
+  }
+  .tab-list{
+    width:320px;
+      margin: 0 auto;
+  }
+
+
+}
+
 .main{
    padding-bottom: 55px;
    background: #EAEAEA;
@@ -86,7 +105,10 @@ export default {
     
   },
   methods:{
-
+   tonewgoods(name){
+    
+      this.$router.push({path:"/newgoods",query:{name}})
+   }
   },
    components:{
     search,
@@ -95,7 +117,7 @@ export default {
     brand,
     newgoods,
     topiclist,
-    newcategory
+    newcategory,
   },
   created:function(){
     
